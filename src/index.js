@@ -2,7 +2,7 @@ import { useState, useEffect } from 'preact/hooks'
 import Router from 'preact-router'
 import './style'
 import { monitor, findStop } from 'dvbjs'
-import baseroute from '../baseroute'
+import baseroute from './baseroute'
 
 const CurrentTime = () => {
     const [time, setTime] = useState('')
