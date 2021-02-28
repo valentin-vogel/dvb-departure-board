@@ -2,6 +2,7 @@ import { useState, useEffect } from 'preact/hooks'
 import Router from 'preact-router'
 import './style'
 import { monitor, findStop } from 'dvbjs'
+import baseroute from '../baseroute'
 
 const CurrentTime = () => {
     const [time, setTime] = useState('')
@@ -199,7 +200,7 @@ const Home = () => {
                     <span class="block">
                         Example for 1 Stop:{' '}
                         <a
-                            href="/departures?title=Postplatz&stop=33000037"
+                            href={`${baseroute}/departures?title=Postplatz&stop=33000037`}
                             class="text-primary"
                         >
                             /departures?title=Postplatz&stop=33000037
@@ -220,7 +221,7 @@ const Home = () => {
                             <a
                                 class="relative block py-2 px-4 no-underline border border-gray-light"
                                 key={item.id}
-                                href={`/departures?title=${item.name}&stop=${item.id}`}
+                                href={`${baseroute}/departures?title=${item.name}&stop=${item.id}`}
                             >
                                 {item.id} - {item.name} - {item.city}
                             </a>
@@ -235,8 +236,8 @@ const Home = () => {
 export default function App() {
     return (
         <Router>
-            <Home path="/" />
-            <Board path="/departures" />
+            <Home path={`${baseroute}/`} />
+            <Board path={`${baseroute}/departures`} />
         </Router>
     )
 }
