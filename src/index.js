@@ -237,7 +237,7 @@ export default function App() {
     return (
         <Router>
             <Home path={`${baseroute}/`} />
-            <Board path={`${baseroute}/departures`} />
+            <Board path={`${baseroute}/departures/:params?`} />
         </Router>
     )
 }
