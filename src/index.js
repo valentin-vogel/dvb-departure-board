@@ -37,7 +37,6 @@ const Departures = ({ stop, title }) => {
         const update = () => {
             monitor(stop).then((departures) => {
                 setDepartures(departures)
-                console.log(departures)
             })
         }
         update()
@@ -83,7 +82,7 @@ const Departures = ({ stop, title }) => {
                     <div class="bg-secondary py-1 px-2 font-bold flex-grow-0 w-16">
                         Typ
                     </div>
-                    <div class="bg-secondary py-1 px-2 font-bold flex-grow-0 w-16 text-right">
+                    <div class="bg-secondary py-1 px-2 font-bold flex-grow-0 w-28 text-right">
                         Linie
                     </div>
                     <div class="bg-secondary py-1 px-2 font-bold flex-grow">
@@ -107,7 +106,7 @@ const Departures = ({ stop, title }) => {
                                 />
                             )}
                         </div>
-                        <div class="bg-secondary py-1 px-2 flex-grow-0 w-16 text-right">
+                        <div class="bg-secondary py-1 px-2 flex-grow-0 w-28 text-right">
                             {departure.line}
                         </div>
                         <div class="bg-secondary py-1 px-2 flex-grow">
@@ -124,11 +123,11 @@ const Departures = ({ stop, title }) => {
 }
 
 const BoardLayout = ({ children }) => (
-    <div class="flex flex-col h-screen">
-        <div class="flex-grow bg-black border-l-8 border-primary">
+    <div class="relative block h-screen overflow-hidden">
+        <div class="grid grid-flow-col bg-black border-l-8 border-primary h-full">
             {children}
         </div>
-        <div class="flex flex-row justify-between items-center h-20 px-6 bg-primary">
+        <div class="absolute left-0 bottom-0 right-0 flex flex-row justify-between items-center h-12 px-6 bg-primary">
             <div class="flex flex-row items-center">
                 <svg
                     aria-hidden="true"
@@ -136,7 +135,7 @@ const BoardLayout = ({ children }) => (
                     role="img"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    class="h-8 w-8"
+                    class="h-6 w-6"
                 >
                     <path
                         fill="currentColor"
@@ -144,13 +143,13 @@ const BoardLayout = ({ children }) => (
                         class=""
                     ></path>
                 </svg>
-                <span class="ml-2 font-bold text-2xl">
+                <span class="ml-2 font-semibold text-2xl">
                     <CurrentTime />
                 </span>
             </div>
             <div class="">
                 <img
-                    class="h-20"
+                    class="h-12"
                     src="https://www.dvb.de/-/media/images/defaults/dvb-logo.jpg"
                 />
             </div>
@@ -158,74 +157,142 @@ const BoardLayout = ({ children }) => (
     </div>
 )
 
-const Board = ({ stop, title }) => (
+const Board = ({ ...props }) => (
     <BoardLayout>
-        <Departures stop={stop} title={title} />
+        {props.stop1 && props.title1 ? (
+            <Departures stop={props.stop1} title={props.title1} />
+        ) : null}
+        {props.stop2 && props.title2 ? (
+            <Departures stop={props.stop2} title={props.title2} />
+        ) : null}
+        {props.stop3 && props.title3 ? (
+            <Departures stop={props.stop3} title={props.title3} />
+        ) : null}
     </BoardLayout>
 )
 
-const Home = () => {
-    const [stopItems, setStopItems] = useState([])
+const Default = () => (
+    <div class="relative flex h-screen justify-center items-center bg-primary">
+        <div class="mx-auto p-4 sm:p-8">
+            <h1 class="block text-xl sm:text-4xl lg:text-6xl xl:text-7xl">
+                Etwas ist schiefgelaufen.
+                <br /> Bitte prüfen Sie ihre Konfiguration!
+            </h1>
+            <a
+                href={`${baseroute}/?c=new`}
+                class="flex items-center text-lg mt-8 sm:text-2xl lg:mt-16"
+            >
+                <span class="">Jetzt einrichten</span>
+            </a>
+        </div>
+    </div>
+)
+
+const Config = ({ ...props }) => {
+    const [searchItems, setSearchItems] = useState([])
+    const [configItems, setConfigItems] = useState([])
+    const [configUrl, setConfigUrl] = useState('')
+
+    useEffect(() => {
+        let url = `${baseroute}/?`
+        configItems.map((item, index) => {
+            if (index > 0) {
+                url =
+                    url +
+                    '&title' +
+                    (index + 1) +
+                    '=' +
+                    item.name +
+                    '&stop' +
+                    (index + 1) +
+                    '=' +
+                    item.id
+            } else {
+                url =
+                    url +
+                    'title' +
+                    (index + 1) +
+                    '=' +
+                    item.name +
+                    '&stop' +
+                    (index + 1) +
+                    '=' +
+                    item.id
+            }
+        })
+        setConfigUrl(url)
+    }, [configItems])
 
     const inputChanged = (e) => {
         findStop(e.target.value)
-            .then((stopItems) => {
-                setStopItems(stopItems)
+            .then((searchItems) => {
+                setSearchItems(searchItems)
             })
             .catch(console.error)
     }
+
     return (
-        <div class="flex items-center justify-center h-screen">
-            <div class="block max-w-2xl shadow border border-gray-light">
-                <div class="p-6">
-                    <h1 class="text-xl">VVO | Departure Board</h1>
+        <div class="relative flex min-h-screen bg-primary">
+            <div class="max-w-5xl mx-auto px-2 w-full">
+                <div class="px-4 py-12">
+                    <h1 class="text-4xl text-center">DVB | Abfahrtsmonitor</h1>
                 </div>
-                <div class="p-6 border-t border-gray-light">
-                    <p>
-                        This departure board application is based on Preact and
-                        the WebAPI of VVO / DVB.
-                    </p>
-                    <p class="mt-1">
-                        Github:{' '}
-                        <a
-                            class="text-primary"
-                            href="https://github.com/valentin-vogel/dvb-departure-board"
-                        >
-                            https://github.com/valentin-vogel/dvb-departure-board
-                        </a>
-                    </p>
-                </div>
-                <div class="p-6 border-t border-gray-light">
-                    <span class="block font-medium">Departure Board:</span>
-                    <span class="block">
-                        Example for 1 Stop:{' '}
-                        <a
-                            href={`${baseroute}/departures?title=Postplatz&stop=33000037`}
-                            class="text-primary"
-                        >
-                            /departures?title=Postplatz&stop=33000037
-                        </a>
-                    </span>
-                </div>
-                <div class="p-6 border-t border-gray-light">
-                    <span class="block mb-1 font-medium">Stop search:</span>
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Type a stop name (example: Postplatz)"
-                        class="block w-full py-2 px-3 text-base border border-gray-light"
-                        onInput={inputChanged}
-                    />
-                    <div class="flex flex-col">
-                        {stopItems.map((item) => (
-                            <a
-                                class="relative block py-2 px-4 no-underline border border-gray-light"
-                                key={item.id}
-                                href={`${baseroute}/departures?title=${item.name}&stop=${item.id}`}
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="relative flex flex-col min-w-0 bg-clip-border border border-gray-light rounded bg-white">
+                        <div class="p-4 bg-gray-light">
+                            Suche eine Haltestelle
+                        </div>
+                        <div class="p-4">
+                            <input
+                                type="text"
+                                class="block w-full p-2 text-base font-normal bg-clip-padding border border-gray-dark appearance-none rounded"
+                                id="search"
+                                aria-describedby="searchHelp"
+                                onInput={inputChanged}
+                            />
+                            <div
+                                id="searchHelp"
+                                class="text-sm mt-1 text-gray-dark"
                             >
-                                {item.id} - {item.name} - {item.city}
-                            </a>
-                        ))}
+                                z.B. Postplatz
+                            </div>
+                        </div>
+                        <ul class="flex flex-col">
+                            {searchItems.map((item) => (
+                                <li class="relative flex flex-row justify-between items-center px-4 py-3 border-t border-gray-light">
+                                    {item.id} - {item.name} - {item.city}
+                                    <button
+                                        class="px-2 py-1 bg-gray-dark text-white rounded"
+                                        onClick={() => {
+                                            setConfigItems([
+                                                ...configItems,
+                                                item,
+                                            ])
+                                        }}
+                                    >
+                                        +
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div class="relative flex flex-col self-start min-w-0 rounded bg-white">
+                        <div class="p-4 bg-gray-light rounded-t">
+                            Konfiguration
+                        </div>
+                        <ul class="flex flex-col">
+                            {configItems.map((item) => (
+                                <li class="relative block px-4 py-3 border-t border-gray-light">
+                                    {item.id} - {item.name} - {item.city}
+                                </li>
+                            ))}
+                        </ul>
+                        <a
+                            class="px-4 py-3 bg-black text-white rounded-b"
+                            href={configUrl}
+                        >
+                            Abfahrtsmonitor anschauen
+                        </a>
                     </div>
                 </div>
             </div>
@@ -233,11 +300,16 @@ const Home = () => {
     )
 }
 
+const Base = ({ ...props }) => {
+    if (props.stop1 && props.title1) return <Board {...props} />
+    if (props.c) return <Config {...props} />
+    return <Default />
+}
+
 export default function App() {
     return (
         <Router>
-            <Home path={`${baseroute}/`} />
-            <Board path={`${baseroute}/departures/:params?`} />
+            <Base path={`${baseroute}/`} />
         </Router>
     )
 }
