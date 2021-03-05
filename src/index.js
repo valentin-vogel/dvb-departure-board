@@ -2,7 +2,6 @@ import { useState, useEffect } from 'preact/hooks'
 import Router from 'preact-router'
 import './style'
 import { monitor, findStop } from 'dvbjs'
-import baseroute from './baseroute'
 
 const CurrentTime = () => {
     const [time, setTime] = useState('')
@@ -171,7 +170,7 @@ const Board = ({ ...props }) => (
     </BoardLayout>
 )
 
-const Default = () => (
+const Home = () => (
     <div class="relative flex h-screen justify-center items-center bg-primary">
         <div class="mx-auto p-4 sm:p-8">
             <h1 class="block text-xl sm:text-4xl lg:text-6xl xl:text-7xl">
@@ -179,7 +178,7 @@ const Default = () => (
                 <br /> Bitte prüfen Sie ihre Konfiguration!
             </h1>
             <a
-                href={`${baseroute}/?c=new`}
+                href="/config"
                 class="flex items-center text-lg mt-8 sm:text-2xl lg:mt-16"
             >
                 <span class="">Jetzt einrichten</span>
@@ -194,31 +193,9 @@ const Config = ({ ...props }) => {
     const [configUrl, setConfigUrl] = useState('')
 
     useEffect(() => {
-        let url = `${baseroute}/?`
-        configItems.map((item, index) => {
-            if (index > 0) {
-                url =
-                    url +
-                    '&title' +
-                    (index + 1) +
-                    '=' +
-                    item.name +
-                    '&stop' +
-                    (index + 1) +
-                    '=' +
-                    item.id
-            } else {
-                url =
-                    url +
-                    'title' +
-                    (index + 1) +
-                    '=' +
-                    item.name +
-                    '&stop' +
-                    (index + 1) +
-                    '=' +
-                    item.id
-            }
+        let url = ''
+        configItems.map((item) => {
+            url = url + '/' + item.name + '/' + item.id
         })
         setConfigUrl(url)
     }, [configItems])
@@ -300,17 +277,12 @@ const Config = ({ ...props }) => {
     )
 }
 
-const Base = ({ ...props }) => {
-    if (props.stop1 && props.title1) return <Board {...props} />
-    if (props.c) return <Config {...props} />
-    return <Default />
-}
-
 export default function App() {
     return (
         <Router>
-            <Base path={`${baseroute}/`} />
-            <Board path={`${baseroute}/:title1/:stop1/:title2?/:stop2?/:title3?/:stop3?`} />
+            <Home path="/" />
+            <Config path="/config" />
+            <Board path="/:title1/:stop1/:title2?/:stop2?/:title3?/:stop3?" />
         </Router>
     )
 }

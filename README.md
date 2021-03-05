@@ -4,7 +4,7 @@ This is a departure application for Dresden's public transport (VVO/DVB). Search
 
 ## Usage
 
-A production build you will find on [Github Pages](https://valentin-vogel.github.io/dvb-departure-board/) or [Vercel](https://dvb-departure-board.vercel.app).
+A production build you will find [here](https://dvb-departure-board.vercel.app).
 
 ## Setup
 
