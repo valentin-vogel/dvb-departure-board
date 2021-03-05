@@ -79,10 +79,18 @@ const Departures = ({ stop, title }) => {
             <table class="table-auto w-full">
                 <thead>
                     <tr class="">
-                        <th class="p-1 text-left bg-secondary border-4 border-black">Typ</th>
-                        <th class="p-1 text-right bg-secondary border-4 border-black">Linie</th>
-                        <th class="p-1 text-left bg-secondary border-4 border-black">Richtung</th>
-                        <th class="p-1 text-right bg-secondary border-4 border-black">in Min</th>
+                        <th class="p-1 text-left bg-secondary border-4 border-black">
+                            Typ
+                        </th>
+                        <th class="p-1 text-right bg-secondary border-4 border-black">
+                            Linie
+                        </th>
+                        <th class="p-1 text-left bg-secondary border-4 border-black">
+                            Richtung
+                        </th>
+                        <th class="p-1 text-right bg-secondary border-4 border-black">
+                            in Min
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,9 +108,15 @@ const Departures = ({ stop, title }) => {
                                     />
                                 )}
                             </td>
-                            <td class="p-1 text-right bg-secondary border-4 border-black">{departure.line}</td>
-                            <td class="p-1 text-left bg-secondary border-4 border-black">{departure.direction}</td>
-                            <td class="p-1 text-right bg-secondary border-4 border-black">{departure.arrivalTimeRelative}</td>
+                            <td class="p-1 text-right bg-secondary border-4 border-black">
+                                {departure.line}
+                            </td>
+                            <td class="p-1 text-left bg-secondary border-4 border-black">
+                                {departure.direction}
+                            </td>
+                            <td class="p-1 text-right bg-secondary border-4 border-black">
+                                {departure.arrivalTimeRelative}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -113,9 +127,7 @@ const Departures = ({ stop, title }) => {
 
 const BoardLayout = ({ children }) => (
     <div class="relative block h-screen overflow-hidden">
-        <div class="grid grid-flow-col bg-black h-full px-1">
-            {children}
-        </div>
+        <div class="grid grid-flow-col bg-black h-full px-1">{children}</div>
         <div class="absolute left-0 bottom-0 right-0 flex flex-row justify-between items-center h-12 px-2 bg-primary">
             <div class="flex flex-row items-center">
                 <svg
