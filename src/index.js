@@ -310,6 +310,7 @@ export default function App() {
     return (
         <Router>
             <Base path={`${baseroute}/`} />
+            <Board path={`${baseroute}/:title1/:stop1/:title2?/:stop2?/:title3?/:stop3?`} />
         </Router>
     )
 }
