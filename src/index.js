@@ -50,9 +50,9 @@ const Departures = ({ stop, title }) => {
 
     return (
         <div class="text-white">
-            <div class="p-4 relative flex items-center">
+            <div class="py-2 px-1 relative flex items-center">
                 <svg
-                    class="h-16 w-16 text-primary"
+                    class="h-12 w-12 text-primary"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 40 40"
                 >
@@ -73,60 +73,50 @@ const Departures = ({ stop, title }) => {
                         />
                     </g>
                 </svg>
-                <h2 class="ml-4 text-5xl">{title}</h2>
+                <h2 class="ml-4 text-4xl">{title}</h2>
             </div>
 
-            <div class="flex flex-col space-y-1 px-2">
-                <div class="flex flex-row items-center space-x-1 text-xl">
-                    <div class="bg-secondary py-1 px-2 font-bold flex-grow-0 w-16">
-                        Typ
-                    </div>
-                    <div class="bg-secondary py-1 px-2 font-bold flex-grow-0 w-28 text-right">
-                        Linie
-                    </div>
-                    <div class="bg-secondary py-1 px-2 font-bold flex-grow">
-                        Richtung
-                    </div>
-                    <div class="bg-secondary py-1 px-2 font-bold flex-grow-0 w-20 text-right">
-                        in Min
-                    </div>
-                </div>
-
-                {departures.map((departure) => (
-                    <div
-                        key={`${departure.id}${departure.scheduledTime}`}
-                        class="flex flex-row space-x-1 text-3xl"
-                    >
-                        <div class="bg-secondary py-1 px-2 flex-grow-0 w-16">
-                            {departure.mode && (
-                                <img
-                                    src={departure.mode.iconUrl}
-                                    alt={departure.mode.name}
-                                />
-                            )}
-                        </div>
-                        <div class="bg-secondary py-1 px-2 flex-grow-0 w-28 text-right">
-                            {departure.line}
-                        </div>
-                        <div class="bg-secondary py-1 px-2 flex-grow">
-                            {departure.direction}
-                        </div>
-                        <div class="bg-secondary py-1 px-2 flex-grow-0 w-20 text-right">
-                            {departure.arrivalTimeRelative}
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr class="">
+                        <th class="p-1 text-left bg-secondary border-4 border-black">Typ</th>
+                        <th class="p-1 text-right bg-secondary border-4 border-black">Linie</th>
+                        <th class="p-1 text-left bg-secondary border-4 border-black">Richtung</th>
+                        <th class="p-1 text-right bg-secondary border-4 border-black">in Min</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {departures.map((departure) => (
+                        <tr
+                            key={`${departure.id}${departure.scheduledTime}`}
+                            class="text-2xl"
+                        >
+                            <td class="p-1 text-left bg-secondary border-4 border-black">
+                                {departure.mode && (
+                                    <img
+                                        src={departure.mode.iconUrl}
+                                        alt={departure.mode.name}
+                                        class="w-9 h-9"
+                                    />
+                                )}
+                            </td>
+                            <td class="p-1 text-right bg-secondary border-4 border-black">{departure.line}</td>
+                            <td class="p-1 text-left bg-secondary border-4 border-black">{departure.direction}</td>
+                            <td class="p-1 text-right bg-secondary border-4 border-black">{departure.arrivalTimeRelative}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }
 
 const BoardLayout = ({ children }) => (
     <div class="relative block h-screen overflow-hidden">
-        <div class="grid grid-flow-col bg-black border-l-8 border-primary h-full">
+        <div class="grid grid-flow-col bg-black h-full px-1">
             {children}
         </div>
-        <div class="absolute left-0 bottom-0 right-0 flex flex-row justify-between items-center h-12 px-6 bg-primary">
+        <div class="absolute left-0 bottom-0 right-0 flex flex-row justify-between items-center h-12 px-2 bg-primary">
             <div class="flex flex-row items-center">
                 <svg
                     aria-hidden="true"
