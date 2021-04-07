@@ -17,6 +17,7 @@ npm run dev
 
 # Build for production
 npm run build
+npm run build:legacy
 
 # Format code
 npm run format
@@ -28,7 +29,7 @@ If you find a bug please create an issue. To contribute, please create a PR.
 
 ## Credits
 
-The communication part for the public transport api is build on [@kiliankoe](https://github.com/kiliankoe)'s Repository [dvbjs](https://github.com/kiliankoe/dvbjs). Thanks!
+Special thanks to [@kiliankoe](https://github.com/kiliankoe)'s Repository [dvbjs](https://github.com/kiliankoe/dvbjs).
 
 ## License
 
