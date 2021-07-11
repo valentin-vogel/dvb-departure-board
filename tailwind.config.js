@@ -12,10 +12,22 @@ module.exports = {
         light: '#e7e7e7',
         dark: '#a1a1a1',
       },
-      primary: '#fec400',
+      primary: {
+        DEFAULT: '#fec400',
+        light: '#fdedb2',
+      },
       secondary: '#262626',
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        // frame
+        frame: '1rem 1fr',
+      },
+      gridTemplateRows: {
+        // frame
+        frame: '1fr 4rem',
+      },
+    },
   },
   variants: {
     extend: {},

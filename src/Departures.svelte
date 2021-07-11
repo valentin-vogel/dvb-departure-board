@@ -1,4 +1,5 @@
 <script>
+  import Message from './Message.svelte'
   import { onMount } from 'svelte'
   import {
     parseDate,
@@ -7,13 +8,14 @@
     dateDifference,
   } from './helpers'
   export let id
+  export let limit
 
   let data = {}
 
   const request = async () => {
     const now = new Date()
     const res = await fetch(
-      `https://webapi.vvo-online.de/dm?format=json&stopid=${id}&time=${now.toISOString()}&isarrival=0&limit=0&shorttermchanges=1&mentzonly=0`
+      `https://webapi.vvo-online.de/dm?format=json&stopid=${id}&time=${now.toISOString()}&isarrival=0&limit=${limit}&shorttermchanges=1&mentzonly=0`
     )
     const resJson = await res.json()
 
@@ -50,12 +52,12 @@
   })
 </script>
 
-<div class="flex-1" data-id={`stop-${id}`}>
+<div class="flex-1 w-1/2" data-id={`stop-${id}`}>
   {#if data && data.name}
     <div class="">
-      <div class="py-2 px-1 relative flex items-center">
+      <div class="py-8 px-2 relative flex items-center">
         <svg
-          class="h-10 w-10 text-primary"
+          class="h-14 w-14 text-primary"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 40 40"
         >
@@ -76,67 +78,67 @@
             />
           </g>
         </svg>
-        <span class="ml-2 text-3xl">{data.name}</span>
+        <span class="ml-2 text-6xl">{data.name}</span>
       </div>
 
-      <div class="table w-full">
-        <div class="table-header-group text-base font-bold">
-          <div class="table-row">
-            <div
-              class="table-cell p-1 bg-secondary border-2 border-black align-middle text-left"
-            />
-            <div
-              class="table-cell p-1 bg-secondary border-2 border-black align-middle text-left"
-            >
-              Linie
-            </div>
-            <div
-              class="table-cell p-1 bg-secondary border-2 border-black align-middle text-left"
-            >
-              Richtung
-            </div>
-            <div
-              class="table-cell p-1 bg-secondary border-2 border-black align-middle text-right"
-            >
-              in Min
-            </div>
+      <div class="flex flex-col w-full h-full whitespace-nowrap">
+        <div class="flex flex-row h-12 text-xl font-bold">
+          <div
+            class="w-16 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-left"
+          />
+          <div
+            class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-left"
+          >
+            Linie
+          </div>
+          <div
+            class="flex-grow p-2 bg-black border-2 border-black align-middle text-left"
+          >
+            Richtung
+          </div>
+          <div
+            class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-right"
+          >
+            in Min
           </div>
         </div>
-        <div class="table-row-group text-lg">
-          {#each data.departures as { id, line, direction, arrivalTimeRelative, mode }}
-            <div class="table-row" data-id={id}>
-              <div
-                class="table-cell p-1 bg-secondary border-2 border-black align-middle text-left"
-              >
-                <img class="h-7 w-7" src={mode.iconUrl} alt={mode.name} />
-              </div>
-              <div
-                class="table-cell p-1 bg-secondary border-2 border-black align-middle text-left"
-              >
-                {line}
-              </div>
-              <div
-                class="table-cell p-1 bg-secondary border-2 border-black align-middle text-left"
-              >
-                {direction}
-              </div>
-              <div
-                class="table-cell p-1 bg-secondary border-2 border-black align-middle text-right"
-              >
-                {arrivalTimeRelative}
-              </div>
+        {#each data.departures as { id, line, direction, arrivalTimeRelative, mode }}
+          <div
+            class="flex flex-row h-16 text-4xl text-primary-light"
+            data-id={id}
+          >
+            <div
+              class="w-16 flex-shrink-0 flex-grow-0 p-2 bg-secondary border-2 border-black align-middle text-left"
+            >
+              <img class="h-full w-full" src={mode.iconUrl} alt={mode.name} />
             </div>
-          {:else}
-            <div class="table-row">
-              <div class="table-cell">No departures available</div>
+            <div
+              class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-secondary border-2 border-black align-middle text-left"
+            >
+              {line}
             </div>
-          {/each}
-        </div>
+            <div
+              class="flex-grow p-2 bg-secondary border-2 border-black align-middle text-left overflow-hidden overflow-ellipsis"
+            >
+              {direction}
+            </div>
+            <div
+              class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-secondary border-2 border-black align-middle text-right"
+            >
+              {arrivalTimeRelative}
+            </div>
+          </div>
+        {:else}
+          <div class="table-row">
+            <div class="table-cell">No departures available</div>
+          </div>
+        {/each}
       </div>
     </div>
   {:else}
-    <div class="">
-      <p>Stop is unavailable!</p>
-    </div>
+    <Message
+      title="Etwas ist schief gelaufen!"
+      text="Die angeforderte Haltestelle {id} existiert nicht."
+    />
   {/if}
 </div>
