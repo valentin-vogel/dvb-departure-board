@@ -8,9 +8,10 @@ This is a departure application for Dresden's public transport (VVO/DVB). Search
 
 A production build you will find [here](https://dvb-departure-board.vercel.app/?stops=33000037,33000004&limit=11).
 
-| Parameter | Description | Default |
-| stops | A comma separated list of stop ids. | undefined |
-| limit | The max value of departure times. | 10 |
+| Parameter | Description                         | Default   |
+| --------- | ----------------------------------- | --------- |
+| stops     | A comma separated list of stop ids. | undefined |
+| limit     | The max value of departure times.   | 10        |
 
 ## Setup
 
