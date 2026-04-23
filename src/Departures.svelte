@@ -84,20 +84,20 @@
       <div class="flex flex-col w-full h-full whitespace-nowrap">
         <div class="flex flex-row h-12 text-xl font-bold">
           <div
-            class="w-16 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-left"
+            class="w-16 shrink-0 grow-0 p-2 bg-black border-2 border-black align-middle text-left"
           ></div>
           <div
-            class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-left"
+            class="w-24 shrink-0 grow-0 p-2 bg-black border-2 border-black align-middle text-left"
           >
             Linie
           </div>
           <div
-            class="flex-grow p-2 bg-black border-2 border-black align-middle text-left"
+            class="grow p-2 bg-black border-2 border-black align-middle text-left"
           >
             Richtung
           </div>
           <div
-            class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-right"
+            class="w-24 shrink-0 grow-0 p-2 bg-black border-2 border-black align-middle text-right"
           >
             in Min
           </div>
@@ -108,22 +108,22 @@
             data-id={id}
           >
             <div
-              class="w-16 flex-shrink-0 flex-grow-0 p-2 bg-secondary border-2 border-black align-middle text-left"
+              class="w-16 shrink-0 grow-0 p-2 bg-secondary border-2 border-black align-middle text-left"
             >
               <img class="h-full w-full" src={mode.iconUrl} alt={mode.name} />
             </div>
             <div
-              class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-secondary border-2 border-black align-middle text-left"
+              class="w-24 shrink-0 grow-0 p-2 bg-secondary border-2 border-black align-middle text-left"
             >
               {line}
             </div>
             <div
-              class="flex-grow p-2 bg-secondary border-2 border-black align-middle text-left overflow-hidden overflow-ellipsis"
+              class="grow p-2 bg-secondary border-2 border-black align-middle text-left overflow-hidden text-ellipsis"
             >
               {direction}
             </div>
             <div
-              class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-secondary border-2 border-black align-middle text-right"
+              class="w-24 shrink-0 grow-0 p-2 bg-secondary border-2 border-black align-middle text-right"
             >
               {arrivalTimeRelative}
             </div>
