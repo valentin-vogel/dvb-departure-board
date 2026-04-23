@@ -1,5 +1,4 @@
 <script>
-  import Tailwind from './Tailwind.svelte'
   import Departures from './Departures.svelte'
   import Message from './Message.svelte'
   import Clock from './Clock.svelte'
@@ -21,11 +20,9 @@
   }
 </script>
 
-<Tailwind />
-
 <div class="bg-black text-white h-screen w-screen overflow-hidden">
   <div class="grid grid-cols-frame grid-rows-frame h-full w-full">
-    <div class="row-span-full col-start-1 col-end-2 bg-primary" />
+    <div class="row-span-full col-start-1 col-end-2 bg-primary"></div>
     <div
       class="row-start-2 row-end-3 col-span-full bg-primary px-6 flex justify-start items-center"
     >

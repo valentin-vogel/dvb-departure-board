@@ -85,7 +85,7 @@
         <div class="flex flex-row h-12 text-xl font-bold">
           <div
             class="w-16 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-left"
-          />
+          ></div>
           <div
             class="w-24 flex-shrink-0 flex-grow-0 p-2 bg-black border-2 border-black align-middle text-left"
           >

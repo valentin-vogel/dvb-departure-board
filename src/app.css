@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #fec400;
+  --color-primary-light: #fdedb2;
+  --color-secondary: #262626;
+  --color-gray-light: #e7e7e7;
+  --color-gray-dark: #a1a1a1;
+
+  --grid-template-columns-frame: 1rem 1fr;
+  --grid-template-rows-frame: 1fr 4rem;
+}
