@@ -1,4 +1,4 @@
-![Screenshot](https://github.com/valentin-vogel/dvb-departure-board/blob/master/screenshot.png)
+![Screenshot](https://github.com/valentin-vogel/dvb-departure-board/blob/main/screenshot.png)
 
 # DVB Departure Board
 
