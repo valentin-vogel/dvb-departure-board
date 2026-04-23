@@ -36,5 +36,9 @@
   "dependencies": {
     "core-js": "^3.15.2",
     "sirv-cli": "^1.0.12"
+  },
+  "engines": {
+    "node": ">=24",
+    "npm": ">=11"
   }
 }
