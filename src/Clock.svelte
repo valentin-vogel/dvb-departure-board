@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
 
-  let date = undefined
+  let date: string | undefined = undefined
   const newDate = async () => {
     const d = new Date()
     date = new Intl.DateTimeFormat('de', {
